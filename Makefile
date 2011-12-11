@@ -15,7 +15,11 @@ all:
 	g++ -c example-plugin.cc $(CFLAGS) $(INCLUDES) $(DEFINES) -o obj/example-plugin.o
 	g++ obj/example-plugin.o obj/examples.o $(LFLAGS) $(LIBS) -shared -o example-plugin.so
 	
+	g++ -c opinionated-example-plugin.cc $(CFLAGS) $(INCLUDES) $(DEFINES) -o obj/opinionated-example-plugin.o
+	g++ obj/opinionated-example-plugin.o obj/examples.o $(LFLAGS) $(LIBS) -shared -o opinionated-example-plugin.so
+
 clean:
 	rm -fr obj
 	rm -f example-plugin.so
+	rm -f opinionated-example-plugin.so
 
