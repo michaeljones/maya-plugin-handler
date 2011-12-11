@@ -3,7 +3,7 @@ INCLUDES := -I/usr/autodesk/maya2010-x64/include
 
 DEFINES := -DLINUX -D_BOOL -DREQUIRE_IOSTREAM
 
-CFLAGS := -fPIC -Wall -Werror
+CFLAGS := -fPIC -Wall -Werror -Wextra
 
 LIBS   := -L/usr/autodesk/maya2010-x64/lib -lOpenMaya -lOpenMayaUI -lFoundation -lGL -lGLU
 LFLAGS := -Wl,-Bsymbolic
