@@ -44,7 +44,7 @@ class Command : public MPxCommand
 {
 public:
 
-    static void* creator() { return new Locator; }
+    static void* creator() { return new Command; }
     static MSyntax syntaxCreator() { return MSyntax(); }
 
     static MString commandName;
