@@ -23,6 +23,13 @@ public:
             MCreatorFunction creatorFunction,
             MCreateSyntaxFunction createSyntaxFunction = NULL
             ) = 0;
+
+    virtual MStatus handleData(
+            const MString& typeName,
+            const MTypeId& typeId,
+            MCreatorFunction creatorFunction,
+            MPxData::Type type = MPxData::kData
+            ) = 0;
 };
 
 class InitializePluginHandler : public PluginHandler
@@ -64,6 +71,21 @@ public:
                 );
     }
 
+    MStatus handleData(
+            const MString& typeName,
+            const MTypeId& typeId,
+            MCreatorFunction creatorFunction,
+            MPxData::Type type = MPxData::kData
+            )
+    {
+        return m_pluginFn.registerData(
+                typeName,
+                typeId,
+                creatorFunction,
+                type
+                );
+    }
+
 private:
 
     MFnPlugin& m_pluginFn;
@@ -95,10 +117,19 @@ public:
             MCreateSyntaxFunction = NULL
             )
     {
-        return m_pluginFn.deregisterCommand(
-                commandName
-                );
+        return m_pluginFn.deregisterCommand( commandName );
     }
+
+    MStatus handleData(
+            const MString&,
+            const MTypeId& typeId,
+            MCreatorFunction,
+            MPxData::Type = MPxData::kData
+            )
+    {
+        return m_pluginFn.deregisterData( typeId );
+    }
+
 
 private:
 

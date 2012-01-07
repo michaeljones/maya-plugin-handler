@@ -24,6 +24,12 @@ MStatus handlePlugin( PluginHandler& handler )
             Command::syntaxCreator
             );
 
+    status = handler.handleData(
+            "dataExample",
+            Data::id,
+            Data::creator
+            );
+
     return status;
 }
 

@@ -95,6 +95,44 @@ public:
     static const MString* classification() { return &T::classification; };
 };
 
+
+//
+// Compile time detection of T::dataType member
+//
+// Works as the nodeType detection above so we leave out the comments
+//
+template< class T >
+class DataTypeIsPresent
+{
+    class Yes { char a[10]; };
+    class No { char a[1]; };
+
+    template< class U, MPxData::Type* > struct Check {};
+    template< class U > static Yes func( Check< U, &U::dataType >* );
+    template< class U > static No func( ... );
+
+public:
+
+    enum { value = sizeof( func< T >( 0 ) ) == sizeof( Yes ) ? 1 : 0 };
+};
+
+
+template< class T, int >
+class DataType
+{
+public:
+
+    static const MPxData::Type dataType() { return MPxData::kData; }
+};
+
+template< class T >
+class DataType< T, 1 >
+{
+public:
+
+    static const MPxData::Type dataType() { return T::dataType; };
+};
+
 }; // end OpinionatedPluginHandler namespace
 
 //
@@ -136,6 +174,20 @@ public:
                 );
     }
 
+    template< class DataT >
+    MStatus handleData()
+    {
+        return m_pluginFn.registerData(
+                DataT::dataName,
+                DataT::id,
+                DataT::creator,
+                OpinionatedPluginHandler::DataType<
+                    DataT,
+                    OpinionatedPluginHandler::DataTypeIsPresent< DataT >::value
+                    >::dataType()
+                );
+    }
+
 private:
 
     MFnPlugin& m_pluginFn;
@@ -143,7 +195,7 @@ private:
 
 
 //
-//  UnInitializeOpinionatedPluginHandler
+//  UninitializeOpinionatedPluginHandler
 //
 class UninitializeOpinionatedPluginHandler
 {
@@ -162,6 +214,12 @@ public:
     MStatus handleCommand()
     {
         return m_pluginFn.deregisterCommand( CommandT::commandName );
+    }
+
+    template< class DataT >
+    MStatus handleData()
+    {
+        return m_pluginFn.deregisterData( DataT::id );
     }
 
 private:
