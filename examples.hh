@@ -13,10 +13,31 @@ public:
     static void* creator() { return new Locator; }
     static MStatus initialize() { return MS::kSuccess; }
 
+};
+
+class FullOpinionatedLocator : public MPxLocatorNode
+{
+public:
+
+    static MTypeId id;
+    static void* creator() { return new FullOpinionatedLocator; }
+    static MStatus initialize() { return MS::kSuccess; }
+
     static MString nodeName;
     static MPxNode::Type nodeType;
-    static MString* classification;
+    static MString classification;
 
+};
+
+class PartialOpinionatedNode : public MPxNode
+{
+public:
+
+    static MTypeId id;
+    static void* creator() { return new PartialOpinionatedNode; }
+    static MStatus initialize() { return MS::kSuccess; }
+
+    static MString nodeName;
 };
 
 class Command : public MPxCommand

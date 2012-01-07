@@ -12,7 +12,8 @@ MStatus handlePlugin( OpinionatedPluginHandlerT& handler )
 {
     MStatus status;
 
-    handler.template handleNode< Locator >();
+    handler.template handleNode< FullOpinionatedLocator >();
+    handler.template handleNode< PartialOpinionatedNode >();
     handler.template handleCommand< Command >();
 
     return status;
