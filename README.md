@@ -11,6 +11,10 @@ Status
 The code is in early stages and hasn't be tested with complex production
 plugins. It works in the basic tests but might fail in other scenarios.
 
+Also, note that not all functions are tested in the tests. It is a lot of work
+to create an example of every Maya MPx class in order to test the registration
+properly.
+
 Why?
 ----
 
