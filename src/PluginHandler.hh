@@ -30,6 +30,11 @@ public:
             MCreatorFunction creatorFunction,
             MPxData::Type type = MPxData::kData
             ) = 0;
+
+    virtual MStatus handleControlCommand(
+            const MString& commandName,
+            MCreatorFunction creatorFunction
+            ) = 0;
 };
 
 class InitializePluginHandler : public PluginHandler
@@ -86,6 +91,17 @@ public:
                 );
     }
 
+    MStatus handleControlCommand(
+            const MString& commandName,
+            MCreatorFunction creatorFunction
+            )
+    {
+        return m_pluginFn.registerControlCommand(
+                commandName,
+                creatorFunction
+                );
+    }
+
 private:
 
     MFnPlugin& m_pluginFn;
@@ -130,6 +146,13 @@ public:
         return m_pluginFn.deregisterData( typeId );
     }
 
+    MStatus handleControlCommand(
+            const MString& commandName,
+            MCreatorFunction
+            )
+    {
+        return m_pluginFn.deregisterControlCommand( commandName );
+    }
 
 private:
 

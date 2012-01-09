@@ -188,6 +188,15 @@ public:
                 );
     }
 
+    template< class ControlCommandT >
+    MStatus handleControlCommand()
+    {
+        return m_pluginFn.registerControlCommand(
+                ControlCommandT::commandName,
+                ControlCommandT::creator
+                );
+    }
+
 private:
 
     MFnPlugin& m_pluginFn;
@@ -220,6 +229,12 @@ public:
     MStatus handleData()
     {
         return m_pluginFn.deregisterData( DataT::id );
+    }
+
+    template< class ControlCommandT >
+    MStatus handleControlCommand()
+    {
+        return m_pluginFn.deregisterControlCommand( ControlCommandT::commandName );
     }
 
 private:
