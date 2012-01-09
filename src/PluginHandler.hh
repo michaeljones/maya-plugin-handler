@@ -20,6 +20,15 @@ public:
             const MString* classification = NULL
             ) = 0;
 
+    virtual MStatus handleShape(
+            const MString& typeName,
+            const MTypeId& typeId,
+            MCreatorFunction creatorFunction,
+            MInitializeFunction initFunction,
+            MCreatorFunction uiCreatorFunction,
+            const MString* classification = NULL
+            ) = 0;
+
     virtual MStatus handleCommand(
             const MString& commandName,
             MCreatorFunction creatorFunction,
@@ -61,6 +70,25 @@ public:
                 creatorFunction,
                 initFunction,
                 type,
+                classification
+                );
+    }
+
+    MStatus handleShape(
+            const MString& typeName,
+            const MTypeId& typeId,
+            MCreatorFunction creatorFunction,
+            MInitializeFunction initFunction,
+            MCreatorFunction uiCreatorFunction,
+            const MString* classification = NULL
+            )
+    {
+        return m_pluginFn.registerShape(
+                typeName,
+                typeId,
+                creatorFunction,
+                initFunction,
+                uiCreatorFunction,
                 classification
                 );
     }
@@ -123,6 +151,18 @@ public:
             MCreatorFunction,
             MInitializeFunction,
             MPxNode::Type = MPxNode::kDependNode,
+            const MString* = NULL
+            )
+    {
+        return m_pluginFn.deregisterNode( typeId );
+    }
+
+    MStatus handleShape(
+            const MString&,
+            const MTypeId& typeId,
+            MCreatorFunction,
+            MInitializeFunction,
+            MCreatorFunction,
             const MString* = NULL
             )
     {

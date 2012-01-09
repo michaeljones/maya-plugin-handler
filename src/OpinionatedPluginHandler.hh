@@ -194,6 +194,19 @@ public:
                 );
     }
 
+    template< class ShapeT >
+    MStatus handleShape()
+    {
+        return m_pluginFn.registerShape(
+                ShapeT::nodeName,
+                ShapeT::id,
+                ShapeT::creator,
+                ShapeT::initialize,
+                ShapeT::uiCreator,
+                Classification< ShapeT, ClassificationIsPresent< ShapeT >::value >::classification()
+                );
+    }
+
     template< class CommandT >
     MStatus handleCommand()
     {
@@ -247,6 +260,12 @@ public:
     MStatus handleNode()
     {
         return m_pluginFn.deregisterNode( NodeT::id );
+    }
+
+    template< class ShapeT >
+    MStatus handleShape()
+    {
+        return m_pluginFn.deregisterNode( ShapeT::id );
     }
 
     template< class CommandT >
