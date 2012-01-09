@@ -40,7 +40,7 @@ Polymorphic Approach
 This allows us to write a function like:
 
 ```
-MStatus handlePlugin( PluginHandler& handler )
+MStatus handlePlugin( mph::PluginHandler& handler )
 {
     return handler.handleNode(
             "locatorExample",
@@ -61,7 +61,7 @@ MStatus initializePlugin( MObject obj )
 {
     MFnPlugin plugin( obj, "Michael Jones", "0.1", "Any");
 
-    InitializePluginHandler handler( plugin );
+    mph::InitializePluginHandler handler( plugin );
     return handlePlugin( handler );
 }
 
@@ -69,7 +69,7 @@ MStatus uninitializePlugin( MObject obj)
 {
     MFnPlugin plugin( obj );
 
-    UninitializePluginHandler handler( plugin );
+    mph::UninitializePluginHandler handler( plugin );
     return handlePlugin( handler );
 }
 ```
@@ -81,7 +81,7 @@ optional arguments.
 The `UninitializePluginHandler` ignores most of the arguments and uses the
 appropriate identifier for the necessary `deregister` method on the MFnPlugin.
 
-See `tests/example-plugin.cc` for a complete example.
+See [tests/example-plugin.cc][polymorphic-example] for a more complete example.
 
 Template Approach
 -----------------
@@ -107,7 +107,7 @@ MStatus initializePlugin( MObject obj )
 {
     MFnPlugin plugin( obj, "Michael Jones", "0.1", "Any");
 
-    InitializeOpinionatedPluginHandler handler( plugin );
+    mph::InitializeOpinionatedPluginHandler handler( plugin );
     return handlePlugin( handler );
 }
 
@@ -115,7 +115,7 @@ MStatus uninitializePlugin( MObject obj)
 {
     MFnPlugin plugin( obj );
 
-    UninitializeOpinionatedPluginHandler handler( plugin );
+    mph::UninitializeOpinionatedPluginHandler handler( plugin );
     return handlePlugin( handler );
 }
 ```
@@ -130,4 +130,9 @@ and syntax functions, however some registration details are not needed anywhere
 else so having them as static members of the classes seems a little
 unnecessary.  
 
+See [tests/example-plugin.cc][template-example] for a more complete example.
+
+
+[polymorphic-example]: https://github.com/michaeljones/maya-plugin-handler/blob/master/tests/example-plugin.cc "Polymorphic example"
+[template-example]: https://github.com/michaeljones/maya-plugin-handler/blob/master/tests/opinionated-example-plugin.cc "Templated example"
 
