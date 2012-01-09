@@ -7,7 +7,7 @@
 #include <maya/MObject.h>
 #include <maya/MStatus.h>
 
-MStatus handlePlugin( PluginHandler& handler )
+MStatus handlePlugin( mph::PluginHandler& handler )
 {
     MStatus status;
     status = handler.handleNode(
@@ -39,7 +39,7 @@ MStatus initializePlugin( MObject obj )
     MStatus result;
     MFnPlugin plugin( obj, "Michael Jones", "0.1", "Any");
 
-    InitializePluginHandler handler( plugin );
+    mph::InitializePluginHandler handler( plugin );
     handlePlugin( handler );
 
     return result;
@@ -51,7 +51,7 @@ MStatus uninitializePlugin( MObject obj)
 
     MFnPlugin plugin( obj );
 
-    UninitializePluginHandler handler( plugin );
+    mph::UninitializePluginHandler handler( plugin );
     handlePlugin( handler );
 
     return result;

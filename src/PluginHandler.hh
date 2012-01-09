@@ -3,6 +3,8 @@
 
 #include <maya/MFnPlugin.h>
 
+namespace mph {
+
 class PluginHandler 
 {
 public:
@@ -159,6 +161,8 @@ private:
     MFnPlugin& m_pluginFn;
 
 };
+
+}; // end namespace mph
 
 #endif // PLUGINHANDLER_HH
 

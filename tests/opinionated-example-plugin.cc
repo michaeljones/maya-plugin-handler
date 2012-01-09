@@ -30,7 +30,7 @@ MStatus initializePlugin( MObject obj )
     MStatus result;
     MFnPlugin plugin( obj, "Michael Jones", "0.1", "Any");
 
-    InitializeOpinionatedPluginHandler handler( plugin );
+    mph::InitializeOpinionatedPluginHandler handler( plugin );
     handlePlugin( handler );
 
     return result;
@@ -42,7 +42,7 @@ MStatus uninitializePlugin( MObject obj)
 
     MFnPlugin plugin( obj );
 
-    UninitializeOpinionatedPluginHandler handler( plugin );
+    mph::UninitializeOpinionatedPluginHandler handler( plugin );
     handlePlugin( handler );
 
     return result;

@@ -3,7 +3,7 @@
 
 #include <maya/MFnPlugin.h>
 
-namespace OpinionatedPluginHandler
+namespace mph
 {
 
 //
@@ -171,8 +171,6 @@ public:
     static const MCreateSyntaxFunction syntaxCreator() { return T::syntaxCreator; };
 };
 
-}; // end OpinionatedPluginHandler namespace
-
 //
 //  InitializeOpinionatedPluginHandler
 //
@@ -191,14 +189,8 @@ public:
                 NodeT::id,
                 NodeT::creator,
                 NodeT::initialize,
-                OpinionatedPluginHandler::NodeType<
-                    NodeT,
-                    OpinionatedPluginHandler::NodeTypeIsPresent< NodeT >::value
-                    >::nodeType(),
-                OpinionatedPluginHandler::Classification<
-                    NodeT,
-                    OpinionatedPluginHandler::ClassificationIsPresent< NodeT >::value
-                    >::classification()
+                NodeType< NodeT, NodeTypeIsPresent< NodeT >::value >::nodeType(),
+                Classification< NodeT, ClassificationIsPresent< NodeT >::value >::classification()
                 );
     }
 
@@ -208,9 +200,9 @@ public:
         return m_pluginFn.registerCommand(
                 CommandT::commandName,
                 CommandT::creator,
-                OpinionatedPluginHandler::SyntaxCreator<
+                SyntaxCreator<
                     CommandT,
-                    OpinionatedPluginHandler::SyntaxCreatorIsPresent< CommandT >::value
+                    SyntaxCreatorIsPresent< CommandT >::value
                     >::syntaxCreator()
                 );
     }
@@ -222,10 +214,7 @@ public:
                 DataT::dataName,
                 DataT::id,
                 DataT::creator,
-                OpinionatedPluginHandler::DataType<
-                    DataT,
-                    OpinionatedPluginHandler::DataTypeIsPresent< DataT >::value
-                    >::dataType()
+                DataType< DataT, DataTypeIsPresent< DataT >::value >::dataType()
                 );
     }
 
@@ -282,6 +271,8 @@ private:
 
     MFnPlugin& m_pluginFn;
 };
+
+}; // end namespace mph
 
 #endif // OPINIONATEDPLUGINHANDLER_HH
 
