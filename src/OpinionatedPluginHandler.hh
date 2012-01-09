@@ -133,6 +133,44 @@ public:
     static const MPxData::Type dataType() { return T::dataType; };
 };
 
+
+//
+// Compile time detection of T::syntaxCreator member
+//
+// Works as the nodeType detection above so we leave out the comments
+//
+template< class T >
+class SyntaxCreatorIsPresent
+{
+    class Yes { char a[10]; };
+    class No { char a[1]; };
+
+    template< class U, MCreateSyntaxFunction > struct Check {};
+    template< class U > static Yes func( Check< U, &U::syntaxCreator >* );
+    template< class U > static No func( ... );
+
+public:
+
+    enum { value = sizeof( func< T >( 0 ) ) == sizeof( Yes ) ? 1 : 0 };
+};
+
+
+template< class T, int >
+class SyntaxCreator
+{
+public:
+
+    static const MCreateSyntaxFunction syntaxCreator() { return NULL; }
+};
+
+template< class T >
+class SyntaxCreator< T, 1 >
+{
+public:
+
+    static const MCreateSyntaxFunction syntaxCreator() { return T::syntaxCreator; };
+};
+
 }; // end OpinionatedPluginHandler namespace
 
 //
@@ -170,7 +208,10 @@ public:
         return m_pluginFn.registerCommand(
                 CommandT::commandName,
                 CommandT::creator,
-                CommandT::syntaxCreator
+                OpinionatedPluginHandler::SyntaxCreator<
+                    CommandT,
+                    OpinionatedPluginHandler::SyntaxCreatorIsPresent< CommandT >::value
+                    >::syntaxCreator()
                 );
     }
 

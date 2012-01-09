@@ -13,8 +13,8 @@ MString FullOpinionatedLocator::classification( "customClassification" );
 MTypeId PartialOpinionatedNode::id( 0x80004 );
 MString PartialOpinionatedNode::nodeName( "partialOpinionatedNode" );
 
-MString OpinionatedCommand::commandName( "opinionatedCommand" );
-
+MString FullOpinionatedCommand::commandName( "fullOpinionatedCommand" );
+MString PartialOpinionatedCommand::commandName( "partialOpinionatedCommand" );
 
 MTypeId FullOpinionatedData::id( 0x80005 );
 MString FullOpinionatedData::dataName( "fullOpinionatedData" );

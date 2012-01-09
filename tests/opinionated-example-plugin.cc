@@ -15,7 +15,8 @@ MStatus handlePlugin( OpinionatedPluginHandlerT& handler )
     handler.template handleNode< FullOpinionatedLocator >();
     handler.template handleNode< PartialOpinionatedNode >();
 
-    handler.template handleCommand< OpinionatedCommand >();
+    handler.template handleCommand< FullOpinionatedCommand >();
+    handler.template handleCommand< PartialOpinionatedCommand >();
 
     handler.template handleData< FullOpinionatedData >();
     handler.template handleData< PartialOpinionatedData >();

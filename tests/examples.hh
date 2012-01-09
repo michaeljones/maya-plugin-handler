@@ -65,15 +65,23 @@ public:
     static MString nodeName;
 };
 
-class OpinionatedCommand : public MPxCommand
+class FullOpinionatedCommand : public MPxCommand
 {
 public:
 
-    static void* creator() { return new Command; }
+    static void* creator() { return new FullOpinionatedCommand; }
     static MSyntax syntaxCreator() { return MSyntax(); }
 
     static MString commandName;
+};
 
+class PartialOpinionatedCommand : public MPxCommand
+{
+public:
+
+    static void* creator() { return new PartialOpinionatedCommand; }
+
+    static MString commandName;
 };
 
 class FullOpinionatedData : public MPxData
