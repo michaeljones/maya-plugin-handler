@@ -29,6 +29,16 @@ public:
             const MString* classification = NULL
             ) = 0;
 
+    virtual MStatus handleTransform(
+            const MString& typeName,
+            const MTypeId& typeId,
+            MCreatorFunction creatorFunction,
+            MInitializeFunction initFunction,
+            MCreateXformMatrixFunction xformCreatorFunction,
+            const MTypeId& xformId,
+            const MString* classification = NULL
+            ) = 0;
+
     virtual MStatus handleCommand(
             const MString& commandName,
             MCreatorFunction creatorFunction,
@@ -89,6 +99,27 @@ public:
                 creatorFunction,
                 initFunction,
                 uiCreatorFunction,
+                classification
+                );
+    }
+
+    MStatus handleTransform(
+            const MString& typeName,
+            const MTypeId& typeId,
+            MCreatorFunction creatorFunction,
+            MInitializeFunction initFunction,
+            MCreateXformMatrixFunction xformCreatorFunction,
+            const MTypeId& xformId,
+            const MString* classification = NULL
+            )
+    {
+        return m_pluginFn.registerTransform(
+                typeName,
+                typeId,
+                creatorFunction,
+                initFunction,
+                xformCreatorFunction,
+                xformId,
                 classification
                 );
     }
@@ -163,6 +194,19 @@ public:
             MCreatorFunction,
             MInitializeFunction,
             MCreatorFunction,
+            const MString* = NULL
+            )
+    {
+        return m_pluginFn.deregisterNode( typeId );
+    }
+
+    MStatus handleTransform(
+            const MString&,
+            const MTypeId& typeId,
+            MCreatorFunction,
+            MInitializeFunction,
+            MCreateXformMatrixFunction,
+            const MTypeId&,
             const MString* = NULL
             )
     {

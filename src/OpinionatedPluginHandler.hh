@@ -207,6 +207,23 @@ public:
                 );
     }
 
+    template< class TransformT >
+    MStatus handleTransform()
+    {
+        return m_pluginFn.registerTransform(
+                TransformT::nodeName,
+                TransformT::id,
+                TransformT::creator,
+                TransformT::initialize,
+                TransformT::xformCreatorFunction,
+                TransformT::xformId,
+                Classification<
+                    TransformT,
+                    ClassificationIsPresent< TransformT >::value
+                    >::classification()
+                );
+    }
+
     template< class CommandT >
     MStatus handleCommand()
     {
@@ -266,6 +283,12 @@ public:
     MStatus handleShape()
     {
         return m_pluginFn.deregisterNode( ShapeT::id );
+    }
+
+    template< class TransformT >
+    MStatus handleTransform()
+    {
+        return m_pluginFn.deregisterNode( TransformT::id );
     }
 
     template< class CommandT >
