@@ -1,4 +1,3 @@
-
 maya-plugin-handler
 ===================
 
@@ -134,7 +133,7 @@ and syntax functions, however some registration details are not needed anywhere
 else so having them as static members of the classes seems a little
 unnecessary.  
 
-See [tests/example-plugin.cc][template-example] for a more complete example.
+See [tests/opinionated-example-plugin.cc][template-example] for a more complete example.
 
 
 [polymorphic-example]: https://github.com/michaeljones/maya-plugin-handler/blob/master/tests/example-plugin.cc "Polymorphic example"
