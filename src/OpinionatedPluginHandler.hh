@@ -19,10 +19,10 @@ class NodeTypeIsPresent
     // Dummy struct which allows us to enforce the type of the nodeType member, though we have to
     // make it a pointer type as the location of the member if non-const but the value isn't and
     // only non-const expressions can be used for templates
-    template< class U, MPxNode::Type* > struct Check {};
+    template< MPxNode::Type* > struct Check {};
 
     // Functions to match with different sized return values
-    template< class U > static Yes func( Check< U, &U::nodeType >* );
+    template< class U > static Yes func( Check< &U::nodeType >* );
     template< class U > static No func( ... );
 
 public:
@@ -69,8 +69,8 @@ class ClassificationIsPresent
     class Yes { char a[10]; };
     class No { char a[1]; };
 
-    template< class U, MString* > struct Check {};
-    template< class U > static Yes func( Check< U, &U::classification >* );
+    template< MString* > struct Check {};
+    template< class U > static Yes func( Check< &U::classification >* );
     template< class U > static No func( ... );
 
 public:
@@ -107,8 +107,8 @@ class DataTypeIsPresent
     class Yes { char a[10]; };
     class No { char a[1]; };
 
-    template< class U, MPxData::Type* > struct Check {};
-    template< class U > static Yes func( Check< U, &U::dataType >* );
+    template< MPxData::Type* > struct Check {};
+    template< class U > static Yes func( Check< &U::dataType >* );
     template< class U > static No func( ... );
 
 public:
@@ -145,8 +145,8 @@ class SyntaxCreatorIsPresent
     class Yes { char a[10]; };
     class No { char a[1]; };
 
-    template< class U, MCreateSyntaxFunction > struct Check {};
-    template< class U > static Yes func( Check< U, &U::syntaxCreator >* );
+    template< MCreateSyntaxFunction > struct Check {};
+    template< class U > static Yes func( Check< &U::syntaxCreator >* );
     template< class U > static No func( ... );
 
 public:
